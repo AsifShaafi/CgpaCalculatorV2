@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainActivities.FramgentActivities.LabResultShowingFragment">
+
+        <WebView
+            android:id="@+id/webViewForLabResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|top"
+            android:animateLayoutChanges="true"
+            android:layout_marginTop="@dimen/text_margin"
+            android:fadeScrollbars="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp" />
+
+</FrameLayout>
