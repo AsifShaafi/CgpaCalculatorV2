@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -75,6 +77,65 @@ public class DialogActivity {
         final EditText text3 = (EditText) v.findViewById(R.id.fileNameEditText3);
         final EditText text4 = (EditText) v.findViewById(R.id.fileNameEditText4);
 
+        /*
+            adding text watcher to go to the next edit text automatically when the use has given the
+            required input in the text field
+         */
+        text1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (text1.getText().toString().length() == 2) {
+                    text2.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        text2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (text2.getText().toString().length() == 2) {
+                    text3.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        text3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (text3.getText().toString().length() == 2) {
+                    text4.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setTitle("Enter your id:")
                 .setView(v)
@@ -87,7 +148,7 @@ public class DialogActivity {
 
                             activity.saveResult(
                                     result,
-                                            text1.getText().toString() + "_" +
+                                    text1.getText().toString() + "_" +
                                             text2.getText().toString() + "_" +
                                             text3.getText().toString() + "_" +
                                             text4.getText().toString(),
@@ -119,9 +180,9 @@ public class DialogActivity {
     /*
         method to show user the alert if they are leaving the activity without saving the file
      */
-    public static void showAlertIfFileNotSaved(final ResultShowingPage resultShowingPageActivity){
+    public static void showAlertIfFileNotSaved(final ResultShowingPage resultShowingPageActivity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(resultShowingPageActivity)
-                .setMessage("The result is not saved, would you still want to leave without saving" +
+                .setMessage("The result is not saved, would you still want to leave without saving " +
                         "the result?")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

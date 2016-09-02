@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center_vertical|center"
     android:orientation="horizontal">
 
@@ -16,6 +17,7 @@
         android:layout_marginStart="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:ems="2"
+        android:enabled="true"
         android:gravity="center"
         android:hint="@string/_00"
         android:inputType="number"
@@ -28,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:paddingBottom="4dp"
         android:text="@string/__" />
 
     <EditText
@@ -38,6 +41,7 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:ems="2"
+        android:enabled="true"
         android:gravity="center"
         android:hint="@string/_00"
         android:inputType="number"
@@ -59,6 +63,8 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:ems="2"
+        android:enabled="true"
+        android:focusable="true"
         android:gravity="center"
         android:hint="@string/_00"
         android:inputType="number"
@@ -78,10 +84,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:ems="3"
+        android:enabled="true"
         android:gravity="center"
         android:hint="@string/_000"
         android:inputType="number"

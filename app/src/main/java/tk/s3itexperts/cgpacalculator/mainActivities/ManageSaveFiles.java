@@ -3,7 +3,6 @@ package tk.s3itexperts.cgpacalculator.mainActivities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -119,7 +118,6 @@ public class ManageSaveFiles extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Snackbar.make(view, "Selected: " + mFileList.getItemAtPosition(i), Snackbar.LENGTH_SHORT).show();
 
         readFromTheFile(mFileList.getItemAtPosition(i).toString());
     }
