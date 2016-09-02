@@ -62,12 +62,7 @@ public class LabResultShowingFragment extends Fragment {
 
                 webViewForLAb.loadUrl("file:///android_asset/Error.html");
             }
-//            @Override
-//            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
-//
-//                webViewForLAb.loadUrl("file:///android_asset/Error1.html");
-//            }
-//
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
 
