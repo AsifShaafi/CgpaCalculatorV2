@@ -1,5 +1,6 @@
 package tk.s3itexperts.cgpacalculator.mainActivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,9 +21,9 @@ import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
 import tk.s3itexperts.cgpacalculator.helperActivities.DialogActivity;
 import tk.s3itexperts.cgpacalculator.helperClasses.ThemeChanger;
-import tk.s3itexperts.cgpacalculator.mainActivities.FramgentActivities.LabResultShowingFragment;
-import tk.s3itexperts.cgpacalculator.mainActivities.FramgentActivities.MarksTakingFragment;
-import tk.s3itexperts.cgpacalculator.mainActivities.FramgentActivities.TheoryResultShowingFragment;
+import tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.LabResultShowingFragment;
+import tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.MarksTakingFragment;
+import tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.TheoryResultShowingFragment;
 
 /**
  * Created by Asif Imtiaz Shaafi, on 8/28/2016.
@@ -80,8 +81,13 @@ public class TabActivity extends AppCompatActivity {
         if (id == R.id.action_change_theme) {
             DialogActivity.changeTheme(this, TabActivity.this);
             return true;
-        }
-        return super.onOptionsItemSelected(item);
+        } else //noinspection SimplifiableIfStatement
+            if (id == android.R.id.home) {
+                finish();
+            } else if (id == R.id.action_viewSavedFiles) {
+                startActivity(new Intent(TabActivity.this, ManageSaveFiles.class));
+            }
+        return true;
     }
 
     @Override
@@ -103,7 +109,6 @@ public class TabActivity extends AppCompatActivity {
         adapter.addFragment(new LabResultShowingFragment(), "Lab Results");
         viewPager.setAdapter(adapter);
     }
-
 
     /*
         a inner class for creating and managing the view pager

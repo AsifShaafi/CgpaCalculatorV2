@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import tk.s3itexperts.cgpacalculator.R;
+import tk.s3itexperts.cgpacalculator.mainActivities.MainActivity;
 
 /**
  * Created by Asif Imtiaz Shaafi, on 8/28/2016.
@@ -22,7 +23,7 @@ public class ThemeChanger {
     public static void changeToTheme(Activity activity, int theme) {
         sTheme = theme;
         activity.finish();
-        activity.startActivity(new Intent(activity, activity.getClass()));
+        activity.startActivity(new Intent(activity, MainActivity.class));
     }
 
     /**

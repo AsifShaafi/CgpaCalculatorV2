@@ -1,4 +1,4 @@
-package tk.s3itexperts.cgpacalculator.mainActivities.FramgentActivities;
+package tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities;
 
 
 import android.content.Intent;
@@ -30,7 +30,7 @@ public class MarksTakingFragment extends Fragment {
     Button mCalculateCgpaButton;
 
     @OnClick(R.id.cgpaCalculateButton)
-    public void calculateAndShowResult() {
+    public void calculateAndShowResult(View view) {
         startActivity(new Intent(getContext(), ResultShowingPage.class));
         getActivity().overridePendingTransition(
                 android.R.anim.fade_in, android.R.anim.fade_out
@@ -44,7 +44,6 @@ public class MarksTakingFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_marks_taking, container, false);
 
         ButterKnife.bind(this, v);
-
         return v;
     }
 

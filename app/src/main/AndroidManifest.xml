@@ -46,8 +46,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".mainActivities.ResultShowingPage"
-            android:label="@string/title_activity_result_showing_page"
-            android:theme="@style/AppTheme"></activity>
+            android:label="Result"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

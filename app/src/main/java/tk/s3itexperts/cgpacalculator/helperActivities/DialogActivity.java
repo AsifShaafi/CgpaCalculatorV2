@@ -54,7 +54,7 @@ public class DialogActivity {
 
     public static void changeTheme(final Context context, final Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                .setTitle("Select theme:")
+                .setTitle("Select theme:\n(Requires restarting!)")
                 .setItems(new String[]{"Dark", "Light"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

@@ -1,8 +1,6 @@
-package tk.s3itexperts.cgpacalculator.mainActivities.FramgentActivities;
-
+package tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,32 +17,38 @@ import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
 import tk.s3itexperts.cgpacalculator.mainActivities.TabActivity;
 
+public class TheoryResultShowingFragment extends Fragment {
 
-public class LabResultShowingFragment extends Fragment {
+    @BindView(R.id.webViewForTheoryResult)
+    WebView webViewForTheory;
 
-    @BindView(R.id.webViewForLabResult)
-    WebView webViewForLAb;
-
-    public LabResultShowingFragment() {
+    public TheoryResultShowingFragment() {
         // Required empty public constructor
     }
-
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        View v = inflater.inflate(R.layout.fragment_theory_result_showing, container, false);
+        ButterKnife.bind(this, v);
+
+        loadResult(TabActivity.THEORY_RESULT_BASE_URL + "2_1" + ".php");
+
+        return v;
     }
 
     public void loadResult(final String url) {
         Log.i("lab", "loadResult: " + url);
 
-        webViewForLAb.postDelayed(new Runnable() {
+        webViewForTheory.postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                webViewForLAb.loadUrl(url);
+                webViewForTheory.loadUrl(url);
             }
         }, 500);
-        WebSettings webSettings = webViewForLAb.getSettings();
+        WebSettings webSettings = webViewForTheory.getSettings();
         //webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setBuiltInZoomControls(true);
@@ -53,14 +57,14 @@ public class LabResultShowingFragment extends Fragment {
         webSettings.setAppCacheEnabled(true);
         webSettings.setDisplayZoomControls(true);
 
-        webViewForLAb.setFitsSystemWindows(true);
-        webViewForLAb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webViewForTheory.setFitsSystemWindows(true);
+        webViewForTheory.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
-        webViewForLAb.setWebViewClient(new WebViewClient() {
+        webViewForTheory.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
 
-                webViewForLAb.loadUrl("file:///android_asset/Error.html");
+                webViewForTheory.loadUrl("file:///android_asset/Error.html");
             }
 
             @Override
@@ -70,20 +74,4 @@ public class LabResultShowingFragment extends Fragment {
             }
         });
     }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View v =  inflater.inflate(R.layout.fragment_lab_result_showing_framgment, container, false);
-
-        ButterKnife.bind(this, v);
-
-        loadResult(TabActivity.LAB_RESULT_BASE_URL + "2_1" + ".php");
-
-        return v;
-    }
-
 }

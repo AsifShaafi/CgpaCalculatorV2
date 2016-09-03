@@ -12,11 +12,10 @@
     tools:context="tk.s3itexperts.cgpacalculator.mainActivities.ResultShowingPage"
     tools:showIn="@layout/activity_result_showing_page">
 
-    <TextView
-        android:id="@+id/resultShowingTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="New Text" />
+        <TextView
+            android:id="@+id/resultShowingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="New Text" />
 
 </ScrollView>

@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
+import tk.s3itexperts.cgpacalculator.helperClasses.ThemeChanger;
 
 public class ManageSaveFiles extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -37,6 +38,11 @@ public class ManageSaveFiles extends AppCompatActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         /*
+            setting the theme which was last selected or default
+         */
+        ThemeChanger.onActivityCreateSetTheme(this);
+
         setContentView(R.layout.activity_manage_save_files);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,7 +87,7 @@ public class ManageSaveFiles extends AppCompatActivity implements AdapterView.On
         if (item.getItemId() == android.R.id.home) {
             finish();
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     private void getSavedFilesFromFolder() {
@@ -101,7 +107,7 @@ public class ManageSaveFiles extends AppCompatActivity implements AdapterView.On
             }
 
 
-            Log.i("filepath", "disexists: " + dirExists);
+            Log.i("filepath", "dirExists: " + dirExists);
 
             if (dirExists) {
                 for (File f : dir.listFiles()) {
@@ -126,9 +132,8 @@ public class ManageSaveFiles extends AppCompatActivity implements AdapterView.On
         reading the results of the student from the selected file
      */
     private void readFromTheFile(String fileName) {
-        String filePath = File.separator + fileName;
 
-        File file = new File(dir, filePath);
+        File file = new File(dir, fileName);
 
         try {
 
