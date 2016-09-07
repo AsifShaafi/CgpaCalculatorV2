@@ -23,11 +23,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
-import tk.s3itexperts.cgpacalculator.helperActivities.DialogActivity;
+import tk.s3itexperts.cgpacalculator.helperClasses.StaticDialogsAndMethods;
 import tk.s3itexperts.cgpacalculator.helperClasses.ThemeChanger;
 
 public class ResultShowingPage extends AppCompatActivity {
@@ -37,11 +38,11 @@ public class ResultShowingPage extends AppCompatActivity {
     public static boolean isFileSaved = false;
 
     /*
-        default heading of the file
+        default heading of the file. It is added on top of the saved file before saving
      */
-    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, yyyy", Locale.getDefault());
     private StringBuilder resultToDisplay =
-            new StringBuilder("Date Created: " + sdf.format(Calendar.getInstance().getTime()) + "\n\nCGPA: ");
+            new StringBuilder("Date Created: " + sdf.format(Calendar.getInstance().getTime()) + "\n\n");
 
     @BindView(R.id.saveResultFab)
     FloatingActionButton fabForSave;
@@ -65,16 +66,18 @@ public class ResultShowingPage extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        boolean fromCalculate = getIntent().getBooleanExtra(TabActivity.CALLING_FROM, true);
+        boolean isSavedFile = getIntent().getBooleanExtra(TabActivity.CALLING_FROM, false);
+        //isSavedFile=false means that this activity is being called after the use has given all his marks and calculated the cgpa
+        //and true means that this activity is called to show/display the saved files,so they don't need to be saved
         String result = getIntent().getStringExtra(TabActivity.RESULT);
 
-        if (fromCalculate) {
+        if (!isSavedFile) {
             isFileSaved = false;
             fabForSave.setVisibility(View.VISIBLE);
             fabForSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DialogActivity.ShowUserSaveOptionAndCallSavingFunction(ResultShowingPage.this,
+                    StaticDialogsAndMethods.ShowUserSaveOptionAndCallSavingFunction(ResultShowingPage.this,
                             resultToDisplay.toString(), view);
                 }
             });
@@ -104,7 +107,7 @@ public class ResultShowingPage extends AppCompatActivity {
 
             super.onBackPressed();
         } else {
-            DialogActivity.showAlertIfFileNotSaved(ResultShowingPage.this);
+            StaticDialogsAndMethods.showAlertIfFileNotSaved(ResultShowingPage.this);
         }
     }
 
@@ -122,14 +125,14 @@ public class ResultShowingPage extends AppCompatActivity {
                 if (isFileSaved) {
                     finish();
                 } else {
-                    DialogActivity.showAlertIfFileNotSaved(ResultShowingPage.this);
+                    StaticDialogsAndMethods.showAlertIfFileNotSaved(ResultShowingPage.this);
                 }
                 return true;
             case R.id.action_viewSavedFiles:
                 startActivity(new Intent(ResultShowingPage.this, ManageSaveFiles.class));
                 break;
             case R.id.action_change_theme:
-                DialogActivity.changeTheme(this, ResultShowingPage.this);
+                StaticDialogsAndMethods.changeTheme(this, ResultShowingPage.this);
                 break;
 
         }

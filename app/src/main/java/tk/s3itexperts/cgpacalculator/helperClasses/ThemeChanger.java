@@ -31,7 +31,6 @@ public class ThemeChanger {
      */
     public static void onActivityCreateSetTheme(Activity activity) {
         switch (sTheme) {
-            default:
             case THEME_DEFAULT:
                 activity.setTheme(R.style.AppTheme);
                 break;

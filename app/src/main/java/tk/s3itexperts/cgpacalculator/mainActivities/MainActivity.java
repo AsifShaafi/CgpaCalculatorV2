@@ -15,7 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
-import tk.s3itexperts.cgpacalculator.helperActivities.DialogActivity;
+import tk.s3itexperts.cgpacalculator.helperClasses.StaticDialogsAndMethods;
 import tk.s3itexperts.cgpacalculator.helperClasses.ThemeChanger;
 
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner mSemesterSelectionSpinner;
 
     //static variables to store the year and semester of a student
-    public static int STD_YEAR, STD_SEMESTER;
+    public static int STD_YEAR = 2, STD_SEMESTER = 1;
 
     /*
         Lists of the semesters
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_change_theme) {
-            DialogActivity.changeTheme(this, MainActivity.this);
+            StaticDialogsAndMethods.changeTheme(this, MainActivity.this);
             return true;
         }
         else if (id == R.id.action_viewSavedFiles)
@@ -109,6 +109,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getYearOfStudent(View view) {
-        DialogActivity.showYearOptions(MainActivity.this, mSelectedYear);
+        StaticDialogsAndMethods.showYearOptions(MainActivity.this, mSelectedYear);
     }
 }

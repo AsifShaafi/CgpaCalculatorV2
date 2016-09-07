@@ -7,6 +7,16 @@
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     tools:context=".mainActivities.FragmentActivities.MarksTakingFragment">
 
+
+    <ProgressBar
+        android:id="@+id/calculationProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,128 +30,173 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                app:hintTextAppearance="?android:textAppearanceLarge">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textLayout_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 app:hintTextAppearance="?android:textAppearanceLarge">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/subject_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marks"
-                    android:inputType="number" />
+                    android:hint="@string/marks"
+                    android:inputType="number"
+                    android:maxLength="2" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -151,14 +206,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
                 android:background="@drawable/button_bg_selected"
+                android:focusable="true"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingStart="8dp"
                 android:shadowColor="@color/colorAccent"
-                android:text="Calculate CGPA"
+                android:text="@string/calculate_cgpa"
                 android:textStyle="bold" />
 
         </LinearLayout>

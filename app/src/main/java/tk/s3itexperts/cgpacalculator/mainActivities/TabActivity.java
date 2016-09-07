@@ -18,8 +18,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import tk.s3itexperts.cgpacalculator.Data.CourseData;
+import tk.s3itexperts.cgpacalculator.Data.CourseStructure;
 import tk.s3itexperts.cgpacalculator.R;
-import tk.s3itexperts.cgpacalculator.helperActivities.DialogActivity;
+import tk.s3itexperts.cgpacalculator.helperClasses.StaticDialogsAndMethods;
 import tk.s3itexperts.cgpacalculator.helperClasses.ThemeChanger;
 import tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.LabResultShowingFragment;
 import tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.MarksTakingFragment;
@@ -35,6 +37,10 @@ public class TabActivity extends AppCompatActivity {
     public static final String THEORY_RESULT_BASE_URL = "http://www.aust.edu/result/cse_t_";
     public static final String RESULT = "result";
     public static final String CALLING_FROM = "calling_from"; //this constant is for telling the result showing activity from which activity it was called
+
+    private List<CourseStructure> courseStructures = CourseData.getCourseList();
+    public static CourseStructure mCourseStructure;
+    MarksTakingFragment mMarksTakingFragment = new MarksTakingFragment();
 
     //binding the views with butter-knife
     @BindView(R.id.tabs)
@@ -59,6 +65,18 @@ public class TabActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        Log.i("student", "onCreate: " + MainActivity.STD_YEAR + " " + MainActivity.STD_SEMESTER);
+
+        for (CourseStructure structure: courseStructures)
+        {
+            if (structure.getYear() == MainActivity.STD_YEAR
+                    && structure.getSemester() == MainActivity.STD_SEMESTER)
+            {
+                mCourseStructure = structure;
+                mMarksTakingFragment.setTitle(mCourseStructure.getCourseTitles());
+            }
+        }
+
         setViewPager(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager); //setting up the viewpager title in the tab-layout
     }
@@ -79,7 +97,7 @@ public class TabActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_change_theme) {
-            DialogActivity.changeTheme(this, TabActivity.this);
+            StaticDialogsAndMethods.changeTheme(this, TabActivity.this);
             return true;
         } else //noinspection SimplifiableIfStatement
             if (id == android.R.id.home) {
@@ -104,7 +122,7 @@ public class TabActivity extends AppCompatActivity {
 
     private void setViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MarksTakingFragment(), "Calculate");
+        adapter.addFragment(mMarksTakingFragment, "Calculate");
         adapter.addFragment(new TheoryResultShowingFragment(), "Theory Results");
         adapter.addFragment(new LabResultShowingFragment(), "Lab Results");
         viewPager.setAdapter(adapter);

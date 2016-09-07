@@ -1,21 +1,32 @@
-package tk.s3itexperts.cgpacalculator.helperActivities;
+package tk.s3itexperts.cgpacalculator.helperClasses;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Locale;
 
 import tk.s3itexperts.cgpacalculator.R;
+import tk.s3itexperts.cgpacalculator.helperClasses.MyTextWatcher;
 import tk.s3itexperts.cgpacalculator.helperClasses.ThemeChanger;
 import tk.s3itexperts.cgpacalculator.mainActivities.MainActivity;
 import tk.s3itexperts.cgpacalculator.mainActivities.ResultShowingPage;
@@ -24,7 +35,7 @@ import tk.s3itexperts.cgpacalculator.mainActivities.ResultShowingPage;
  * Created by Asif Imtiaz Shaafi, on 8/28/2016.
  * Email: a15shaafi.209@gmail.com
  */
-public class DialogActivity {
+public class StaticDialogsAndMethods {
 
     /*
         dialog to give the user the options to set the year
@@ -81,60 +92,9 @@ public class DialogActivity {
             adding text watcher to go to the next edit text automatically when the use has given the
             required input in the text field
          */
-        text1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (text1.getText().toString().length() == 2) {
-                    text2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        text2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (text2.getText().toString().length() == 2) {
-                    text3.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        text3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (text3.getText().toString().length() == 2) {
-                    text4.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        text1.addTextChangedListener(new MyTextWatcher(text1, text2, 2));
+        text2.addTextChangedListener(new MyTextWatcher(text2, text3, 2));
+        text3.addTextChangedListener(new MyTextWatcher(text3, text4, 2));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setTitle("Enter your id:")
@@ -194,5 +154,73 @@ public class DialogActivity {
 
         Dialog dialog = builder.create();
         dialog.show();
+    }
+
+    /*
+        method to check if the user is connected to the internet or not
+     */
+
+    public static boolean hasNetworkConnection(Context context)
+    {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo info = manager.getActiveNetworkInfo();
+
+        return  info != null && (info.isConnectedOrConnecting() && info.isAvailable());
+    }
+
+
+    /*
+        checking the network and taking stapes accordingly
+     */
+    public static void checkNetworkAndLoadUrl(Context context, String url,
+                                              final WebView webView, final SwipeRefreshLayout mSwipeRefreshLayout){
+
+
+        Log.i("lab", "loadResult: " + url);
+        mSwipeRefreshLayout.setRefreshing(true);
+
+        WebSettings webSettings = webView.getSettings();
+        //webSettings.setJavaScriptEnabled(true);
+        webSettings.setLoadsImagesAutomatically(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setDisplayZoomControls(true);
+
+        webView.setFitsSystemWindows(true);
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+
+
+        if (hasNetworkConnection(context))
+        {
+            webView.loadUrl(url);
+            webView.setWebViewClient(new WebViewClient() {
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+
+                    webView.loadUrl("file:///android_asset/Error.html");
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    return false;
+                }
+            });
+
+            mSwipeRefreshLayout.setRefreshing(false);
+
+        }
+        else {
+            webView.loadUrl("file:///android_asset/Error.html");
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
+
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

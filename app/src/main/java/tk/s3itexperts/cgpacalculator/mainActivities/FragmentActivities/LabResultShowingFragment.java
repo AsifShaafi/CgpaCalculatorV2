@@ -4,6 +4,7 @@ package tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +18,16 @@ import android.webkit.WebViewClient;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
+import tk.s3itexperts.cgpacalculator.helperClasses.StaticDialogsAndMethods;
 import tk.s3itexperts.cgpacalculator.mainActivities.TabActivity;
 
 
-public class LabResultShowingFragment extends Fragment {
+public class LabResultShowingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.webViewForLabResult)
     WebView webViewForLAb;
+    @BindView(R.id.labResultRefresh)
+    SwipeRefreshLayout mSwipeRefreshLayoutLab;
 
     public LabResultShowingFragment() {
         // Required empty public constructor
@@ -34,44 +38,6 @@ public class LabResultShowingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void loadResult(final String url) {
-        Log.i("lab", "loadResult: " + url);
-
-        webViewForLAb.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                webViewForLAb.loadUrl(url);
-            }
-        }, 500);
-        WebSettings webSettings = webViewForLAb.getSettings();
-        //webSettings.setJavaScriptEnabled(true);
-        webSettings.setLoadsImagesAutomatically(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheEnabled(true);
-        webSettings.setDisplayZoomControls(true);
-
-        webViewForLAb.setFitsSystemWindows(true);
-        webViewForLAb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-
-        webViewForLAb.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-
-                webViewForLAb.loadUrl("file:///android_asset/Error.html");
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-
-                return true;
-            }
-        });
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,9 +47,40 @@ public class LabResultShowingFragment extends Fragment {
 
         ButterKnife.bind(this, v);
 
-        loadResult(TabActivity.LAB_RESULT_BASE_URL + "2_1" + ".php");
+        mSwipeRefreshLayoutLab.setOnRefreshListener(this);
+
+        mSwipeRefreshLayoutLab.post(new Runnable() {
+            @Override
+            public void run() {
+
+                /*
+                    calling the static method with the url to show the results in the webpage
+                 */
+                StaticDialogsAndMethods.checkNetworkAndLoadUrl(
+                        getContext(),
+                        TabActivity.LAB_RESULT_BASE_URL +
+                        TabActivity.mCourseStructure.getWebPageNameExtenction() +
+                        ".php",
+                        webViewForLAb,
+                        mSwipeRefreshLayoutLab
+                );
+            }
+        });
 
         return v;
+    }
+
+    @Override
+    public void onRefresh() {
+        StaticDialogsAndMethods.checkNetworkAndLoadUrl(
+                getContext(),
+//                TabActivity.LAB_RESULT_BASE_URL +
+//                        TabActivity.mCourseStructure.getWebPageNameExtenction() +
+//                        ".php",
+                "https://www.google.com",
+                webViewForLAb,
+                mSwipeRefreshLayoutLab
+        );
     }
 
 }

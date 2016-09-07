@@ -2,6 +2,7 @@ package tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,15 @@ import android.webkit.WebViewClient;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tk.s3itexperts.cgpacalculator.R;
+import tk.s3itexperts.cgpacalculator.helperClasses.StaticDialogsAndMethods;
 import tk.s3itexperts.cgpacalculator.mainActivities.TabActivity;
 
-public class TheoryResultShowingFragment extends Fragment {
+public class TheoryResultShowingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.webViewForTheoryResult)
     WebView webViewForTheory;
+    @BindView(R.id.theoryResultRefresh)
+    SwipeRefreshLayout mSwipeRefreshLayoutTheory;
 
     public TheoryResultShowingFragment() {
         // Required empty public constructor
@@ -33,45 +37,39 @@ public class TheoryResultShowingFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_theory_result_showing, container, false);
         ButterKnife.bind(this, v);
 
-        loadResult(TabActivity.THEORY_RESULT_BASE_URL + "2_1" + ".php");
+        mSwipeRefreshLayoutTheory.setOnRefreshListener(this);
+
+        mSwipeRefreshLayoutTheory.post(new Runnable() {
+            @Override
+            public void run() {
+
+                /*
+                    calling the static method with the url to show the results in the webpage
+                 */
+                StaticDialogsAndMethods.checkNetworkAndLoadUrl(
+                        getContext(),
+                        TabActivity.THEORY_RESULT_BASE_URL +
+                                TabActivity.mCourseStructure.getWebPageNameExtenction() +
+                                ".php",
+                        webViewForTheory,
+                        mSwipeRefreshLayoutTheory
+                );
+            }
+        });
 
         return v;
     }
 
-    public void loadResult(final String url) {
-        Log.i("lab", "loadResult: " + url);
+    @Override
+    public void onRefresh() {
 
-        webViewForTheory.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                webViewForTheory.loadUrl(url);
-            }
-        }, 500);
-        WebSettings webSettings = webViewForTheory.getSettings();
-        //webSettings.setJavaScriptEnabled(true);
-        webSettings.setLoadsImagesAutomatically(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheEnabled(true);
-        webSettings.setDisplayZoomControls(true);
-
-        webViewForTheory.setFitsSystemWindows(true);
-        webViewForTheory.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-
-        webViewForTheory.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-
-                webViewForTheory.loadUrl("file:///android_asset/Error.html");
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-
-                return true;
-            }
-        });
+        StaticDialogsAndMethods.checkNetworkAndLoadUrl(
+                getContext(),
+                TabActivity.THEORY_RESULT_BASE_URL +
+                        TabActivity.mCourseStructure.getWebPageNameExtenction() +
+                        ".php",
+                webViewForTheory,
+                mSwipeRefreshLayoutTheory
+        );
     }
 }

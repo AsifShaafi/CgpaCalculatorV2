@@ -1,21 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/theoryResultRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.TheoryResultShowingFragment"
-    android:foregroundGravity="center">
+    android:foregroundGravity="center"
+    tools:context="tk.s3itexperts.cgpacalculator.mainActivities.FragmentActivities.TheoryResultShowingFragment">
 
     <WebView
         android:id="@+id/webViewForTheoryResult"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal|top"
-        android:animateLayoutChanges="true"
-        android:layout_marginTop="@dimen/text_margin"
-        android:fadeScrollbars="true"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:nestedScrollingEnabled="true"
-        android:scrollIndicators="left" />
+        android:layout_marginTop="@dimen/text_margin"
+        android:animateLayoutChanges="true"
+        android:fadeScrollbars="true"/>
 
-</FrameLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

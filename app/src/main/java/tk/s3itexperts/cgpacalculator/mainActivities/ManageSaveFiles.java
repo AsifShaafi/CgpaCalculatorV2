@@ -156,7 +156,7 @@ public class ManageSaveFiles extends AppCompatActivity implements AdapterView.On
 
             Intent intent = new Intent(ManageSaveFiles.this, ResultShowingPage.class);
             intent.putExtra(TabActivity.RESULT, result);
-            intent.putExtra(TabActivity.CALLING_FROM, false);
+            intent.putExtra(TabActivity.CALLING_FROM, true);
             startActivity(intent);
 
             /*
